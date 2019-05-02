@@ -17,6 +17,14 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "ng-tree-transfer": [
+        "./lib/tree-transfer.module"
+      ],
+      "ng-tree-transfer/*": [
+        "./lib/*"
+      ]
+    }
   }
 }

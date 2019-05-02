@@ -1,18 +1,6 @@
 {
   "name": "ng-tree-transfer",
-  "version": "0.0.1-beta.0",
-  "scripts": {
-    "ng": "ng",
-    "start": "ng serve -o",
-    "test": "ng test",
-    "lint": "ng lint",
-    "e2e": "ng e2e",
-    "site:build": "ng build --prod --build-optimizer",
-    "site:gh": "ng build --prod --build-optimizer --base-href /ng-tree-transfer/ && gh-pages -d ./dist",
-    "build": "node scripts/build.js",
-    "release:next": "npm run build && cd publish && npm publish --access public --tag next",
-    "release": "npm run build && cd publish && npm publish --access public"
-  },
+  "version": "0.0.0",
   "private": true,
   "peerDependencies": {
     "lodash": "^4.17.11",
@@ -53,10 +41,17 @@
     "ng-packagr": "^5.1.0",
     "ng-zorro-antd": "^7.3.3"
   },
-  "ngPackage": {
-    "lib": {
-      "entryFile": "lib/index.ts"
-    },
-    "dest": "./publish"
+  "main": "bundles/ng-tree-transfer.umd.js",
+  "module": "fesm5/ng-tree-transfer.js",
+  "es2015": "fesm2015/ng-tree-transfer.js",
+  "esm5": "esm5/ng-tree-transfer.js",
+  "esm2015": "esm2015/ng-tree-transfer.js",
+  "fesm5": "fesm5/ng-tree-transfer.js",
+  "fesm2015": "fesm2015/ng-tree-transfer.js",
+  "typings": "ng-tree-transfer.d.ts",
+  "metadata": "ng-tree-transfer.metadata.json",
+  "sideEffects": false,
+  "dependencies": {
+    "tslib": "^1.9.0"
   }
 }

@@ -1,0 +1,111 @@
+<div class="tree-transfer">
+  <div class="tree-transfer-panel tree-transfer-left">
+    <div class="tree-transfer-panel-header">
+      <label
+        nz-checkbox
+        [ngModel]="treeCheckedKeys.length > 0 && treeCheckedKeys.length === leafKeys.length"
+        [nzIndeterminate]="treeCheckedKeys.length > 0 && treeCheckedKeys.length < leafKeys.length"
+        (ngModelChange)="treeOnCheckAll($event)"
+      ></label>
+      <span class="tree-transfer-panel-header-select">
+        {{treeCheckedKeys.length > 0 ? treeCheckedKeys.length + '/' : ''}}{{leafKeys.length}} 条数据
+      </span>
+      <span class="tree-transfer-panel-header-title">
+        <ng-container *stringTemplateOutlet="titles[0]">{{titles[0]}}</ng-container>
+      </span>
+    </div>
+    <div class="tree-transfer-panel-body"
+         [class.tree-transfer-panel-body-has-search]="showSearch"
+         [class.tree-transfer-panel-body-has-footer]="footer"
+    >
+      <div class="tree-transfer-panel-body-search" *ngIf="showSearch">
+        <nz-input-group [nzSuffix]="suffixIcon">
+          <input type="text" nz-input placeholder="Search" (keyup.enter)="treeSearch($event)"/>
+        </nz-input-group>
+      </div>
+      <div class="tree-transfer-panel-body-content">
+        <nz-tree #tree
+          nzCheckable
+          [nzData]="source"
+          [nzExpandAll]="treeExpandAll"
+          [nzCheckedKeys]="treeCheckedKeys"
+          [nzExpandedKeys]="treeExpandedKeys"
+          [nzSearchValue]="treeSearchValue"
+          (nzCheckBoxChange)="treeOnCheck($event)"
+        ></nz-tree>
+      </div>
+    </div>
+    <div *ngIf="footer" class="tree-transfer-panel-footer">
+      <ng-container *stringTemplateOutlet="footer">{{footer}}</ng-container>
+    </div>
+  </div>
+  <div class="tree-transfer-operation">
+    <button
+      nz-button
+      nzType="{{!getLeftDisabled ? 'primary' : ''}}"
+      [nzSize]="'small'"
+      [disabled]="getLeftDisabled"
+      (click)="leftToRight()"
+    >
+      <i nz-icon type="right"></i>
+    </button>
+    <button
+      nz-button
+      nzType="{{listCheckedKeys.length !== 0 ? 'primary' : ''}}"
+      [nzSize]="'small'"
+      [disabled]="listCheckedKeys.length === 0"
+      (click)="rightToLeft()"
+    >
+      <i nz-icon type="left"></i>
+    </button>
+  </div>
+  <div class="tree-transfer-panel tree-transfer-right">
+    <div class="tree-transfer-panel-header">
+      <label
+        nz-checkbox
+        [ngModel]="listCheckedKeys.length > 0 && listCheckedKeys.length === listData.length"
+        [nzIndeterminate]="listCheckedKeys.length > 0 && listCheckedKeys.length < listData.length"
+        (ngModelChange)="listOnCheckAll($event)"
+      ></label>
+      <span class="tree-transfer-panel-header-select">
+        {{listCheckedKeys.length > 0 ? listCheckedKeys.length + '/' : ''}}{{listData.length}} 条数据
+      </span>
+      <span class="tree-transfer-panel-header-title">
+        <ng-container *stringTemplateOutlet="titles[1]">{{titles[1]}}</ng-container>
+      </span>
+    </div>
+    <div class="tree-transfer-panel-body"
+         [class.tree-transfer-panel-body-has-search]="showSearch"
+         [class.tree-transfer-panel-body-has-footer]="footer"
+    >
+      <div class="tree-transfer-panel-body-search" *ngIf="showSearch">
+        <nz-input-group [nzSuffix]="suffixIcon">
+          <input type="text" nz-input placeholder="Search" (keyup.enter)="listSearch($event)"/>
+        </nz-input-group>
+      </div>
+      <ul class="tree-transfer-panel-body-content">
+        <li *ngFor="let item of listData">
+          <label
+            nz-checkbox
+            [ngModel]="listCheckedKeys.indexOf(item.key) > -1"
+            (ngModelChange)="listOnCheck($event, [item.key])"
+          >
+            <ng-container *ngIf="showListSearchValue(item)">
+              <span>{{item.title.substr(0, item.title.indexOf(listSearchValue))}}<span style="color: #f50;">{{listSearchValue}}</span>{{item.title.substr(item.title.indexOf(listSearchValue) + listSearchValue.length)}}</span>
+            </ng-container>
+            <ng-container *ngIf="!showListSearchValue(item)">
+              <span>{{item.title}}</span>
+            </ng-container>
+          </label>
+        </li>
+      </ul>
+    </div>
+    <div *ngIf="footer" class="tree-transfer-panel-footer">
+      <ng-container *stringTemplateOutlet="footer">{{footer}}</ng-container>
+    </div>
+  </div>
+</div>
+
+<ng-template #suffixIcon>
+  <i nz-icon type="search"></i>
+</ng-template>
