@@ -4,9 +4,7 @@ import { AppComponent } from './app.component';
 import {CommonModule, registerLocaleData} from '@angular/common';
 import {TreeTransferModule} from 'ng-tree-transfer/src/tree-transfer.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {NzInputNumberModule, NgZorroAntdModule, NZ_I18N, zh_CN} from 'ng-zorro-antd';
-import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import {NgZorroAntdModule, NZ_I18N, zh_CN} from 'ng-zorro-antd';
 import zh from '@angular/common/locales/zh';
 
 registerLocaleData(zh);

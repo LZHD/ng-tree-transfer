@@ -11,7 +11,7 @@ export class TreeTransferComponent implements OnInit {
   @Input() titles: Array<string | TemplateRef<void>> = ['源数据', '目的数据'];
   @Input() source: Array<any> = []; // 源数据
   @Input() target: Array<string | number> = []; // 目标数据
-  @Input() showSearch = true; // 是否显示搜索框
+  @Input() showSearch = false; // 是否显示搜索框
   @Input() footer: string | TemplateRef<void>;
   treeSearchValue = ''; // 树的搜索值
   listSearchValue = ''; // 列表的搜索值
