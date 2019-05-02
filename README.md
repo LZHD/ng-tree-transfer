@@ -16,16 +16,16 @@ angular tree-transfer based on ng-zorro-antd
 npm install ng-tree-transfer --save
 ```
 
-import {TreeTransferModule} from 'ng-tree-transfer';
+import { TreeTransferModule } from 'ng-tree-transfer';
 
 ```typescript
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
-import {CommonModule, registerLocaleData} from '@angular/common';
-import {TreeTransferModule} from 'ng-tree-transfer';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {NgZorroAntdModule, NZ_I18N, zh_CN} from 'ng-zorro-antd';
+import { CommonModule, registerLocaleData } from '@angular/common';
+import { TreeTransferModule } from 'ng-tree-transfer';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgZorroAntdModule, NZ_I18N, zh_CN } from 'ng-zorro-antd';
 import zh from '@angular/common/locales/zh';
 
 registerLocaleData(zh);
