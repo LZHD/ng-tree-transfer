@@ -13,7 +13,6 @@
     "release:next": "npm run build && cd publish && npm publish --access public --tag next",
     "release": "npm run build && cd publish && npm publish --access public"
   },
-  "private": true,
   "peerDependencies": {
     "lodash": "^4.17.11",
     "ng-zorro-antd": "^7.3.3"
