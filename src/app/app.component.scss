@@ -2,6 +2,11 @@
   text-align: center;
   ::ng-deep .tree-transfer {
     width: 600px;
-    margin: 100px auto auto;
+    margin: auto;
+  }
+  h4 {
+    width: 600px;
+    text-align: left;
+    margin: 25px auto;
   }
 }
