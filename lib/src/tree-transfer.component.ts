@@ -1,5 +1,5 @@
-import {Component, Input, OnInit, TemplateRef, ViewChild} from '@angular/core';
-import {NzFormatEmitEvent} from 'ng-zorro-antd';
+import {Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild} from '@angular/core';
+import {NzFormatEmitEvent, NzTreeComponent, NzTreeNode, NzTreeNodeOptions} from 'ng-zorro-antd';
 import * as _ from 'lodash';
 
 @Component({
@@ -8,21 +8,24 @@ import * as _ from 'lodash';
   styleUrls: ['./tree-transfer.component.scss']
 })
 export class TreeTransferComponent implements OnInit {
-  @Input() titles: Array<string | TemplateRef<void>> = ['源数据', '目的数据'];
-  @Input() source: Array<any> = []; // 源数据
-  @Input() target: Array<string | number> = []; // 目标数据
-  @Input() showSearch = false; // 是否显示搜索框
-  @Input() footer: string | TemplateRef<void>;
-  treeSearchValue = ''; // 树的搜索值
-  listSearchValue = ''; // 列表的搜索值
-  listData: Array<any> = []; // 列表数组
-  listCheckedKeys: Array<any> = []; // 选中的列表keys
-  treeCheckedKeys: Array<any> = []; // 选中的树keys
-  treeExpandedKeys: Array<any> = [];
-  treeExpandAll = false;
-  leafKeys: Array<any> = []; // 树的所有叶子节点
-  allKeys: Array<any> = []; // 树的所有keys
-  @ViewChild('tree') tree;
+  @Input() titles: string[] | TemplateRef<void>[] = ['源数据', '目的数据'];
+  @Input() source: NzTreeNodeOptions[] = [];
+  @Input() private target: string[] = [];
+  @Input() showSearch = false;
+  @Input() footer: string[] | TemplateRef<void>[];
+  @Input() treeExpandAll = false;
+  @Input() nzSearchPlaceholder = '请输入要搜索的内容';
+  @Output() readonly nzSearchChange = new EventEmitter<object>();
+  @Output() readonly nzChange = new EventEmitter<object>();
+  treeSearchValue = '';
+  listSearchValue = '';
+  listData: NzTreeNodeOptions[] = [];
+  listCheckedKeys: string[] = [];
+  treeCheckedKeys: string[] = [];
+  treeExpandedKeys: string[] = [];
+  leafKeys: string[] = [];
+  private allKeys: Array<any> = [];
+  @ViewChild('tree') private tree: NzTreeComponent;
 
   constructor() { }
 
@@ -32,7 +35,7 @@ export class TreeTransferComponent implements OnInit {
     this.treeExpandedKeys = this.treeCheckedKeys;
   }
 
-  initData(source) {
+  initData(source: NzTreeNodeOptions[]) {
     source.map(item => {
       if (this.target.indexOf(item.key) > -1) {
         this.listData.push(item);
@@ -49,6 +52,7 @@ export class TreeTransferComponent implements OnInit {
     this.target = this.treeCheckedKeys;
     this.listData = [];
     this.initData(this.tree.getTreeNodes());
+    this.moveChange(this.target, 'tree');
   }
 
   rightToLeft() {
@@ -57,6 +61,7 @@ export class TreeTransferComponent implements OnInit {
     this.initData(this.tree.getTreeNodes());
     this.listCheckedKeys = [];
     this.treeCheckedKeys = this.listData.map(item => item.key);
+    this.moveChange(this.target, 'list');
   }
 
   treeOnCheck(event: NzFormatEmitEvent): void {
@@ -73,7 +78,7 @@ export class TreeTransferComponent implements OnInit {
     }
   }
 
-  listOnCheck(e: boolean, checkedKeys: any[]) {
+  listOnCheck(e: boolean, checkedKeys: string[]) {
     if (e) {
       this.listCheckedKeys = _.uniq([...this.listCheckedKeys, ...checkedKeys]);
     } else {
@@ -85,7 +90,7 @@ export class TreeTransferComponent implements OnInit {
     this.listOnCheck(e, this.listData.map(item => item.key));
   }
 
-  getTreeCheckedKeys(source) {
+  getTreeCheckedKeys(source: NzTreeNode[]) {
     source.map(item => {
       if (item.isChecked) {
         this.allKeys.push(item.key);
@@ -101,16 +106,26 @@ export class TreeTransferComponent implements OnInit {
       _.difference(this.treeCheckedKeys, this.listData.map(item => item.key)).length === 0;
   }
 
-  showListSearchValue(item): boolean {
+  showListSearchValue(item: NzTreeNodeOptions): boolean {
     return this.listSearchValue.length > 0 && item.title.indexOf(this.listSearchValue) > -1;
   }
 
   listSearch(e) {
     this.listSearchValue = e.target.value;
+    this.searchChange(this.listSearchValue, 'list');
   }
 
   treeSearch(e) {
     this.treeSearchValue = e.target.value;
+    this.searchChange(this.treeSearchValue, 'tree');
+  }
+
+  searchChange(value: string, type: 'list' | 'tree') {
+    this.nzSearchChange.emit({value, type});
+  }
+
+  moveChange(value: string[], type: 'list' | 'tree') {
+    this.nzChange.emit({value, type});
   }
 
 }

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {NzTreeNodeOptions} from 'ng-zorro-antd';
 
 @Component({
   selector: 'app-root',
@@ -7,7 +8,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'ng-tree-transfer';
-  nodes = [
+  nodes: NzTreeNodeOptions[] = [
     {
       title: '0-0',
       key: '0-0',
@@ -52,4 +53,12 @@ export class AppComponent {
       isLeaf: true
     }
   ];
+
+  change(e) {
+    console.log(e);
+  }
+
+  search(e) {
+    console.log(e);
+  }
 }

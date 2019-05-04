@@ -4,5 +4,10 @@
   <h4>1. 基础用法</h4>
   <nz-tree-transfer [source]="nodes"></nz-tree-transfer>
   <h4>2. 基础用法，显示搜索框</h4>
-  <nz-tree-transfer [source]="nodes" [showSearch]="true"></nz-tree-transfer>
+  <nz-tree-transfer
+    [source]="nodes"
+    [showSearch]="true"
+    (nzChange)="change($event)"
+    (nzSearchChange)="search($event)"
+  ></nz-tree-transfer>
 </div>

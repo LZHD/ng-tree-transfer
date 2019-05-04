@@ -20,13 +20,14 @@
     >
       <div class="tree-transfer-panel-body-search" *ngIf="showSearch">
         <nz-input-group [nzSuffix]="suffixIcon">
-          <input type="text" nz-input placeholder="Search" (keyup.enter)="treeSearch($event)"/>
+          <input type="text" nz-input [placeholder]="nzSearchPlaceholder" (keyup.enter)="treeSearch($event)"/>
         </nz-input-group>
       </div>
       <div class="tree-transfer-panel-body-content">
         <nz-tree #tree
           nzCheckable
           [nzData]="source"
+           nzBlockNode
           [nzExpandAll]="treeExpandAll"
           [nzCheckedKeys]="treeCheckedKeys"
           [nzExpandedKeys]="treeExpandedKeys"
@@ -36,7 +37,7 @@
       </div>
     </div>
     <div *ngIf="footer" class="tree-transfer-panel-footer">
-      <ng-container *stringTemplateOutlet="footer">{{footer}}</ng-container>
+      <ng-container *stringTemplateOutlet="footer[0]">{{footer[0]}}</ng-container>
     </div>
   </div>
   <div class="tree-transfer-operation">
@@ -80,7 +81,7 @@
     >
       <div class="tree-transfer-panel-body-search" *ngIf="showSearch">
         <nz-input-group [nzSuffix]="suffixIcon">
-          <input type="text" nz-input placeholder="Search" (keyup.enter)="listSearch($event)"/>
+          <input type="text" nz-input [placeholder]="nzSearchPlaceholder" (keyup.enter)="listSearch($event)"/>
         </nz-input-group>
       </div>
       <ul class="tree-transfer-panel-body-content">
@@ -101,7 +102,7 @@
       </ul>
     </div>
     <div *ngIf="footer" class="tree-transfer-panel-footer">
-      <ng-container *stringTemplateOutlet="footer">{{footer}}</ng-container>
+      <ng-container *stringTemplateOutlet="footer[1]">{{footer[1]}}</ng-container>
     </div>
   </div>
 </div>
