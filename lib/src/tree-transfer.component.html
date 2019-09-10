@@ -48,7 +48,7 @@
       [disabled]="getLeftDisabled"
       (click)="leftToRight()"
     >
-      <i nz-icon type="right"></i>
+      <i nz-icon nzType="right"></i>
     </button>
     <button
       nz-button
@@ -57,7 +57,7 @@
       [disabled]="listCheckedKeys.length === 0"
       (click)="rightToLeft()"
     >
-      <i nz-icon type="left"></i>
+      <i nz-icon nzType="left"></i>
     </button>
   </div>
   <div class="tree-transfer-panel tree-transfer-right">
@@ -108,5 +108,5 @@
 </div>
 
 <ng-template #suffixIcon>
-  <i nz-icon type="search"></i>
+  <i nz-icon nzType="search"></i>
 </ng-template>
