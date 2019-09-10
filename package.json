@@ -1,6 +1,6 @@
 {
   "name": "ng-tree-transfer",
-  "version": "0.0.1-beta.2",
+  "version": "0.0.1",
   "description": "tree-transfer",
   "repository": {
     "type": "git",
@@ -20,7 +20,7 @@
   "bugs": {
     "url": "https://github.com/lzhd/ng-tree-transfer/issues"
   },
-  "homepage": "https://github.com/lzhd/ng-tree-transfer#readme",
+  "homepage": "https://lzhd.github.io/ng-tree-transfer",
   "scripts": {
     "ng": "ng",
     "start": "ng serve -o",
@@ -34,8 +34,8 @@
     "release": "npm run build && cd publish && npm publish --access public"
   },
   "peerDependencies": {
-    "lodash": "^4.17.11",
-    "ng-zorro-antd": "^7.3.3"
+    "lodash": ">=4.17.11",
+    "ng-zorro-antd": ">=7.0.0"
   },
   "devDependencies": {
     "@angular/animations": "~7.2.0",
