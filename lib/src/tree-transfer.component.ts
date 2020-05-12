@@ -1,4 +1,14 @@
-import {Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild} from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  SimpleChanges,
+  TemplateRef,
+  ViewChild
+} from '@angular/core';
 import {NzFormatEmitEvent, NzTreeComponent, NzTreeNode, NzTreeNodeOptions} from 'ng-zorro-antd';
 import * as _ from 'lodash';
 
@@ -7,7 +17,7 @@ import * as _ from 'lodash';
   templateUrl: './tree-transfer.component.html',
   styleUrls: ['./tree-transfer.component.scss']
 })
-export class TreeTransferComponent implements OnInit {
+export class TreeTransferComponent implements OnInit, OnChanges {
   @Input() titles: string[] | TemplateRef<void>[] = ['源数据', '目的数据'];
   @Input() source: NzTreeNodeOptions[] = [];
   @Input() private target: string[] = [];
@@ -30,12 +40,24 @@ export class TreeTransferComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.initData(this.source);
+    this.init(this.source);
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (!!changes.source) {
+      if (!changes.source.firstChange && changes.source.currentValue.length > 0) {
+        this.init(changes.source.currentValue);
+      }
+    }
+  }
+
+  init(source: NzTreeNodeOptions[]): void {
+    this.initData(source);
     this.treeCheckedKeys = this.listData.map(item => item.key);
     this.treeExpandedKeys = this.treeCheckedKeys;
   }
 
-  initData(source: NzTreeNodeOptions[]) {
+  initData(source: NzTreeNodeOptions[]): void {
     source.map(item => {
       if (this.target.indexOf(item.key) > -1) {
         this.listData.push(item);
@@ -48,14 +70,14 @@ export class TreeTransferComponent implements OnInit {
     });
   }
 
-  leftToRight() {
+  leftToRight(): void {
     this.target = this.treeCheckedKeys;
     this.listData = [];
     this.initData(this.tree.getTreeNodes());
     this.moveChange(this.target, 'tree');
   }
 
-  rightToLeft() {
+  rightToLeft(): void {
     this.target = this.listData.map(item => item.key).filter(key => this.listCheckedKeys.indexOf(key) < 0);
     this.listData = [];
     this.initData(this.tree.getTreeNodes());
@@ -70,7 +92,7 @@ export class TreeTransferComponent implements OnInit {
     this.treeCheckedKeys = this.allKeys.filter(key => this.leafKeys.indexOf(key) > -1);
   }
 
-  treeOnCheckAll(e: boolean) {
+  treeOnCheckAll(e: boolean): void {
     if (e) {
       this.treeCheckedKeys = this.leafKeys;
     } else {
@@ -78,7 +100,7 @@ export class TreeTransferComponent implements OnInit {
     }
   }
 
-  listOnCheck(e: boolean, checkedKeys: string[]) {
+  listOnCheck(e: boolean, checkedKeys: string[]): void {
     if (e) {
       this.listCheckedKeys = _.uniq([...this.listCheckedKeys, ...checkedKeys]);
     } else {
@@ -86,11 +108,11 @@ export class TreeTransferComponent implements OnInit {
     }
   }
 
-  listOnCheckAll(e: boolean) {
+  listOnCheckAll(e: boolean): void {
     this.listOnCheck(e, this.listData.map(item => item.key));
   }
 
-  getTreeCheckedKeys(source: NzTreeNode[]) {
+  getTreeCheckedKeys(source: NzTreeNode[]): void {
     source.map(item => {
       if (item.isChecked) {
         this.allKeys.push(item.key);
@@ -110,21 +132,21 @@ export class TreeTransferComponent implements OnInit {
     return this.listSearchValue.length > 0 && item.title.indexOf(this.listSearchValue) > -1;
   }
 
-  listSearch(e) {
+  listSearch(e): void {
     this.listSearchValue = e.target.value;
     this.searchChange(this.listSearchValue, 'list');
   }
 
-  treeSearch(e) {
+  treeSearch(e): void {
     this.treeSearchValue = e.target.value;
     this.searchChange(this.treeSearchValue, 'tree');
   }
 
-  searchChange(value: string, type: 'list' | 'tree') {
+  searchChange(value: string, type: 'list' | 'tree'): void {
     this.nzSearchChange.emit({value, type});
   }
 
-  moveChange(value: string[], type: 'list' | 'tree') {
+  moveChange(value: string[], type: 'list' | 'tree'): void {
     this.nzChange.emit({value, type});
   }
 
