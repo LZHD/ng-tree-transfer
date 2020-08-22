@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {FormsModule} from '@angular/forms';
-import {NgZorroAntdModule} from 'ng-zorro-antd';
-import {TreeTransferComponent} from './tree-transfer.component';
-import {StringTemplateOutletDirective} from './string-template-outlet.directive';
+import { FormsModule } from '@angular/forms';
+import { NzIconModule, NzButtonModule, NzInputModule, NzCheckboxModule, NzTreeModule } from 'ng-zorro-antd';
+import { TreeTransferComponent } from './tree-transfer.component';
+import { StringTemplateOutletDirective } from './string-template-outlet.directive';
 
 @NgModule({
   declarations: [
@@ -13,7 +13,11 @@ import {StringTemplateOutletDirective} from './string-template-outlet.directive'
   imports: [
     CommonModule,
     FormsModule,
-    NgZorroAntdModule
+    NzIconModule,
+    NzButtonModule,
+    NzInputModule,
+    NzCheckboxModule,
+    NzTreeModule
   ],
   exports: [
     TreeTransferComponent
