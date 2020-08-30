@@ -1,7 +1,7 @@
 {
   "name": "ng-tree-transfer",
-  "version": "0.0.4-beta.1",
-  "description": "tree-transfer",
+  "version": "0.0.4",
+  "description": "angular tree-transfer based on ng-zorro-antd",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/lzhd/ng-tree-transfer.git"
