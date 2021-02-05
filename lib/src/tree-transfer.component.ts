@@ -9,7 +9,7 @@ import {
   TemplateRef,
   ViewChild
 } from '@angular/core';
-import {NzFormatEmitEvent, NzTreeComponent, NzTreeNode, NzTreeNodeOptions} from 'ng-zorro-antd';
+import {NzFormatEmitEvent, NzTreeComponent, NzTreeNode, NzTreeNodeOptions} from 'ng-zorro-antd/tree';
 import * as _ from 'lodash';
 
 @Component({
@@ -39,7 +39,7 @@ export class TreeTransferComponent implements OnInit, OnChanges {
 
   constructor() { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.init(this.source);
   }
 
