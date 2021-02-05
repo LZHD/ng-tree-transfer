@@ -1,0 +1,28 @@
+{
+  "name": "ng-tree-transfer",
+  "version": "0.0.5",
+  "description": "angular tree-transfer based on ng-zorro-antd",
+  "author": "lzhd",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lzhd/ng-tree-transfer/issues"
+  },
+  "homepage": "https://lzhd.github.io/ng-tree-transfer",
+  "keywords": [
+    "tree-transfer",
+    "tree",
+    "ng-zorro-antd",
+    "angular",
+    "ng-tree-transfer",
+    "nz-tree-transfer",
+    "transfer"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lzhd/ng-tree-transfer.git"
+  },
+  "peerDependencies": {
+    "lodash": ">=4.17.20",
+    "ng-zorro-antd": ">=10.0.0"
+  }
+}
